@@ -1,6 +1,6 @@
 # Ruby on Rails Icons (ror-icons)
 
-![download (1)](https://github.com/user-attachments/assets/e833ed62-8016-48a3-9ba4-a089a17a6950)
+![download](https://github.com/user-attachments/assets/a31114c9-1a38-48f7-b711-2dece0d4c300)
 
 
 RorIcons is a Ruby on Rails gem for using SVG icons in your views,

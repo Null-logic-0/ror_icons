@@ -8,12 +8,11 @@ Gem::Specification.new do |spec|
 
 	spec.summary = "A Hotwire-ready icon helper gem for Rails"
 	spec.description = "Provides Heroicons SVG helpers for Rails views, similar to react-icons."
-	spec.homepage = "TODO: Put your gem's website or public repo URL here."
+	spec.homepage = "https://github.com/Null-logic-0/ror_icons"
 	spec.license = "MIT"
 	spec.required_ruby_version = ">= 3.2.0"
-	spec.add_dependency "nokogiri", ">= 1.13"
+	spec.add_dependency "nokogiri", "~> 1.13"
 
-	spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 	spec.metadata["homepage_uri"] = spec.homepage
 	spec.metadata["source_code_uri"] = spec.homepage
 	spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"

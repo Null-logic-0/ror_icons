@@ -15,16 +15,14 @@ module RorIcons
 				path = File.join(ICON_ROOT, size.to_s, variant.to_s, "#{icon_name}.svg")
 				raise ArgumentError, "Icon not found: #{path}" unless File.exist?(path)
 
-				svg = if defined?(Rails) && Rails.respond_to?(:cache)
-					      Rails.cache.fetch(path) { File.read(path) }
-					    else
-						    File.read(path)
-				      end
+				svg = (defined?(Rails) && Rails.respond_to?(:cache)) ? Rails.cache.fetch(path) { File.read(path) } : File.read(path)
 				doc = Nokogiri::HTML::DocumentFragment.parse(svg)
 				svg_node = doc.at_css("svg")
+				raise "SVG does not contain <svg> node" unless svg_node
 
-				svg_node["width"] = size
-				svg_node["height"] = size
+				svg_node["width"] = size.to_s
+				svg_node["height"] = size.to_s
+
 				svg_node["class"] = css_class if css_class
 				attrs.each { |k, v| svg_node[k.to_s] = v }
 

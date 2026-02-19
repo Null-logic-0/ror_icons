@@ -2,28 +2,52 @@ name: Ruby
 
 on:
   push:
-    branches:
-      - master
-
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
     strategy:
       matrix:
-        ruby:
-          - '4.0.0'
+        ruby: [ 3.2, 3.3 ]
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - name: Run the default task
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Normalize platforms
+        run: bundle lock --add-platform x86_64-linux
+
+      - name: Run tests
         run: bundle exec rake
+
+  build-gem:
+    runs-on: ubuntu-latest
+    needs: build-test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      - name: Build gem
+        run: gem build ror_icons.gemspec
+
+      - name: Push gem to RubyGems
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+        run: gem push ror_icons-*.gem

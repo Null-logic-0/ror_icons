@@ -1,5 +1,8 @@
 # Ruby on Rails Icons (ror-icons)
 
+![download (1)](https://github.com/user-attachments/assets/e833ed62-8016-48a3-9ba4-a089a17a6950)
+
+
 RorIcons is a Ruby on Rails gem for using SVG icons in your views,
 inspired by React Icons. It provides HeroIcons helpers with dynamic sizing, variants, and extra HTML attributes.
 

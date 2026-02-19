@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ror_icons (0.1.0)
+    ror_icons (0.1.1)
       nokogiri (~> 1.13)
 
 GEM

@@ -20,7 +20,6 @@ module RorIcons
 					    else
 						    File.read(path)
 				      end
-
 				doc = Nokogiri::HTML::DocumentFragment.parse(svg)
 				svg_node = doc.at_css("svg")
 

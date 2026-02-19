@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
 	spec.email = ["tchelidzeluca@gmail.com"]
 
 	spec.summary = "A Hotwire-ready icon helper gem for Rails"
-	spec.description = "Provides Heroicons SVG helpers for Rails views, similar to react-icons."
+	spec.description = "Provides HeroIcons SVG helpers for Rails views, similar to react-icons."
 	spec.homepage = "https://github.com/Null-logic-0/ror_icons"
 	spec.license = "MIT"
 	spec.required_ruby_version = ">= 3.2.0"
@@ -17,21 +17,21 @@ Gem::Specification.new do |spec|
 	spec.metadata["source_code_uri"] = spec.homepage
 	spec.metadata["changelog_uri"] = "#{spec.homepage}/blob/main/CHANGELOG.md"
 
-	# Specify which files should be added to the gem when it is released.
-	# The `git ls-files -z` loads the files in the RubyGem that have been added into git.
-	gemspec = File.basename(__FILE__)
-	spec.files = IO.popen(%w[git ls-files -z], chdir: __dir__) do |ls|
-		ls.readlines("\x0", chomp: true).reject do |f|
-			f == gemspec ||
-				f.end_with?('.gem') ||
-				f.start_with?('bin/', 'test/', '.github/', 'spec/', 'Gemfile', '.gitignore')
-		end
-	end
+	# === FILES ===
+	spec.files = begin
+		             files = `git ls-files`.split("\n")
+		             files.reject do |f|
+			             f == File.basename(__FILE__) ||
+				             f.end_with?('.gem') ||
+				             f.start_with?('bin/', 'test/', '.github/', 'spec/', 'Gemfile', '.gitignore')
+		             end
+	             end
+
+	# Executables
 	spec.bindir = "exe"
 	spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
 	spec.require_paths = ["lib"]
 
+	# Development dependencies
 	spec.add_development_dependency "rails", "~> 7.1"
-	# For more information and examples about making a new gem, check out our
-	# guide at: https://bundler.io/guides/creating_gem.html
 end
